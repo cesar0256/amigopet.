@@ -1,5 +1,5 @@
 // AmigoPet: modo offline. Ao publicar uma nova versão, troque o número abaixo.
-const V = 'amigopet-teste-0.1';
+const V = 'amigopet-teste-0.2';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(V).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));

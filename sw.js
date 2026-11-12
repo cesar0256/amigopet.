@@ -1,5 +1,5 @@
 // AmigoPet: modo offline. Ao publicar uma nova versão, troque o número abaixo.
-const V = 'amigopet-teste-0.2';
+const V = 'amigopet-teste-0.3';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(V).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));
@@ -19,4 +19,13 @@ self.addEventListener('fetch', e => {
     if (res.ok && (res.type === 'basic' || /fonts\.(googleapis|gstatic)\.com/.test(r.url))) { const cp = res.clone(); caches.open(V).then(x => x.put(r, cp)); }
     return res;
   }).catch(() => c)));
+});
+
+// Ao tocar na notificação, abre (ou volta para) o app
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  e.waitUntil(clients.matchAll({ type: 'window', includeUncontrolled: true }).then(l => {
+    for (const c of l) { if ('focus' in c) return c.focus(); }
+    return clients.openWindow('./');
+  }));
 });

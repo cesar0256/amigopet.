@@ -31,7 +31,7 @@ Esta pasta é o app final. Hospede os arquivos no seu domínio, com **https**.
 ## Atualizar o app depois
 
 1. Substitua o `index.html` (e os outros arquivos alterados).
-2. Em `sw.js`, mude o número em `const V = 'amigopet-1.0.1'` (por exemplo, para `1.0.2`). Assim os celulares pegam a versão nova.
+2. Em `sw.js`, mude o número em `const V = 'amigopet-1.0.2'` (por exemplo, para `1.0.3`). Assim os celulares pegam a versão nova.
 
 ## Importante saber
 

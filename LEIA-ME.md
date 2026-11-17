@@ -1,49 +1,42 @@
-# AmigoPet: versão de teste para enviar aos amigos
+# AmigoPet: pacote de produção
 
-Esta pasta é o app instalável (PWA). Para os amigos instalarem, ela precisa ficar num endereço **https**. O jeito mais rápido é o Netlify Drop, que é gratuito e não exige programação.
+Esta pasta é o app final. Hospede os arquivos no seu domínio, com **https**.
 
-## Publicar em 2 minutos (Netlify Drop)
+## Antes de publicar (obrigatório)
 
-1. Entre em https://app.netlify.com/drop (crie uma conta gratuita se pedir).
-2. Arraste a **pasta inteira** `amigopet-teste` (ou o arquivo `.zip`) para a página.
-3. Em segundos o Netlify mostra um endereço parecido com `https://nome-aleatorio.netlify.app`. Esse é o link do teste.
-4. Opcional: em *Site configuration > Change site name*, escolha um nome como `amigopet-teste`.
-5. Abra o link no seu celular para conferir antes de enviar.
+1. Abra `legal-config.js` num editor de texto e preencha os dados da sua empresa: nome, CNPJ, e-mail de contato, plataforma de pagamento e encarregado de dados (DPO). Esses dados aparecem no app e nas páginas de Termos e Privacidade.
+2. Leia `termos.html` e `privacidade.html` no navegador e confira se o texto reflete o que você pratica. Pontos a confirmar:
+   - **Cancelamento:** os Termos dizem que o plano mensal pode ser cancelado a qualquer momento e que o cancelamento impede novas cobranças.
+   - **Reembolso:** os Termos citam 7 dias corridos, como na página de vendas.
+   - **Preços:** R$ 5,00 por mês e R$ 27,00 por ano.
+   - **Foro:** o domicílio do consumidor.
+   - **Dados da plataforma:** a Política diz que a plataforma de pagamento e você tratam nome, e-mail e documento fiscal. Ajuste se coletar outros dados.
+3. **Peça a revisão de um advogado**, de preferência com experiência em LGPD. Os textos foram escritos com base no que o app faz hoje, mas são um modelo e não substituem a análise jurídica.
 
-Alternativas: GitHub Pages, Vercel ou Cloudflare Pages funcionam do mesmo jeito.
+## Publicar
 
-## O que mandar para os amigos
+1. Envie **todos os arquivos** desta pasta para a raiz do seu site. O `index.html` deve ficar na raiz.
+2. Abra o endereço no celular e confira: tela de carregamento, aceite dos Termos, cadastro de um pet e a aba **Instalar**.
+3. Na sua página de vendas e na plataforma de pagamento, use estes links:
+   - Termos de Uso: `https://seudominio.com.br/termos.html`
+   - Política de Privacidade: `https://seudominio.com.br/privacidade.html`
 
-> Oi! Estou testando um app de cuidados para pets, o AmigoPet. Abra este link no celular: **(seu link)**
-> No Android use o Chrome, e no iPhone use o Safari. Depois entre em **Menu > Instalar** para colocar o app na tela inicial.
-> Siga o roteiro em **Menu > Teste** e me mande o seu feedback por lá. Obrigado! 🐾
+## O que mudou em relação à versão de teste
 
-## Receber o feedback pelo seu WhatsApp (opcional)
+- Saíram a aba **Teste** e a mensagem de fase de testes.
+- Entrou a aba **Termos e privacidade**, com Termos de Uso, Política de Privacidade e direitos da LGPD, mais os botões **Exportar meus dados** e **Apagar todos os dados**.
+- Na primeira abertura, o app pede o aceite dos Termos e da Política. O aceite fica registrado no aparelho, e quando você mudar `VERSAO` em `legal-config.js` o app pede um novo aceite.
+- A aba **Ajustes** foi removida: backup, importar, apagar dados, demonstração, assinatura e suporte agora ficam na aba **Termos e privacidade**.
 
-Por padrão, o botão "Enviar feedback" abre o compartilhamento do celular do amigo. Para as mensagens chegarem direto no seu WhatsApp, abra `index.html` num editor de texto, procure `FEEDBACK_WA=''` e coloque seu número com DDI e DDD, sem símbolos:
+## Atualizar o app depois
 
-```
-FEEDBACK_WA='5547999999999'
-```
+1. Substitua o `index.html` (e os outros arquivos alterados).
+2. Em `sw.js`, mude o número em `const V = 'amigopet-1.0.1'` (por exemplo, para `1.0.2`). Assim os celulares pegam a versão nova.
 
-## Como o teste funciona
+## Importante saber
 
-- Cada amigo tem o **seu próprio app e os seus próprios dados**, guardados só no celular dele. Ninguém vê os dados de ninguém, e você também não vê.
-- Na primeira abertura aparece uma mensagem de boas-vindas com a opção de carregar dados de demonstração.
-- O app funciona sem internet depois de aberto uma vez.
-- Se o amigo limpar os dados do navegador ou desinstalar o app, os dados dele somem. Há "Exportar backup" em Ajustes.
-
-## Publicar uma nova versão
-
-1. Troque o `index.html` pelo novo.
-2. Em `sw.js`, mude o número em `const V = 'amigopet-teste-0.1'` (por exemplo para `0.2`).
-3. Arraste a pasta de novo no Netlify (no site existente, em *Deploys*).
-
-Quem abrir o app com internet recebe a versão nova.
-
-## Observações
-
-- **Instalação no iPhone:** só funciona pelo Safari, em *Compartilhar > Adicionar à Tela de Início*. O botão "Instalar agora" não existe no iOS.
-- **GPS do passeio:** funciona só em https, e o navegador pede permissão.
-- **Dados de saúde dos pets:** para o lançamento oficial, publique Termos de uso e Política de privacidade.
-- **Versão com login e sincronização:** continua na pasta `amigopet-supabase`, para quando você quiser vários aparelhos compartilhando os mesmos dados.
+- **Acesso:** o app não sabe quem pagou. Quem tiver o link consegue usar. Se isso for um problema, o próximo passo é a versão com contas e pagamento automático (pasta `amigopet-supabase`).
+- **Dados dos usuários:** ficam só no aparelho de cada um, e você não tem acesso a eles. A Política já diz isso. Se você passar a coletar dados (login, estatísticas, mapas, anúncios), **atualize os textos antes**.
+- **Google Fonts:** a fonte do app é carregada dos servidores do Google, que recebe o IP do usuário. A Política já informa isso. Se quiser evitar, hospede as fontes você mesmo.
+- **Mapa do passeio:** hoje é desenhado sobre uma grade, sem mapa de ruas. Se adicionar um provedor de mapas, inclua na Política.
+- **iPhone:** a instalação só funciona pelo Safari, e as notificações só com o app instalado na tela inicial.

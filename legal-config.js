@@ -2,7 +2,7 @@
 window.AP_LEGAL = {
   EMPRESA: '[NOME DA EMPRESA]',
   CNPJ: '[CNPJ]',
-  EMAIL: '[E-MAIL DE CONTATO]',
+  EMAIL: 'amigopet56@gmail.com',
   PLATAFORMA: '[PLATAFORMA DE PAGAMENTO]',   // ex.: Hotmart, Kiwify, Eduzz
   DPO: '[NOME DO ENCARREGADO PELOS DADOS]',  // pode ser você mesmo(a)
   VERSAO: '1.0',                             // mude ao alterar os textos: o app pede novo aceite
